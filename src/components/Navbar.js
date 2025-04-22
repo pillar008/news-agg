@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/homepage.css";
+import { FaMoon, FaSun } from "react-icons/fa"; // Import icons from react-icons
 
-function Navbar({ query, setQuery, handleSearch, handleLogout }) {
+function Navbar({
+  query,
+  setQuery,
+  handleSearch,
+  handleLogout,
+  onShowBookmarks,
+  darkMode,
+  toggleDarkMode
+}) {
+  const [isBookmarksActive, setIsBookmarksActive] = useState(false);
+
+  const handleBookmarksClick = () => {
+    setIsBookmarksActive(!isBookmarksActive);
+    onShowBookmarks();
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
       <a className="navbar-brand" href="/">
@@ -9,27 +25,43 @@ function Navbar({ query, setQuery, handleSearch, handleLogout }) {
       </a>
 
       <div className="collapse navbar-collapse justify-content-end">
-        {/* Horizontal Form */}
-        <div className="search-logout-form">
+        <div className="search-logout-form d-flex gap-2 align-items-center">
           <input
-            className="form-control me-2"
+            className="form-control"
             type="search"
             placeholder="e.g. Science"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button
-            className="btn btn-outline-primary me-2"
-            type="button"
-            onClick={handleSearch}
-          >
+          <button className="btn btn-outline-primary" onClick={handleSearch}>
             Search
           </button>
           <button
-            className="btn btn-outline-danger"
-            type="button"
-            onClick={handleLogout}
+            className={`btn ${
+              isBookmarksActive ? "btn-success" : "btn-outline-info"
+            }`}
+            onClick={handleBookmarksClick}
           >
+            Bookmarks
+          </button>
+          <button 
+            className="btn btn-outline-warning d-flex align-items-center gap-1"
+            onClick={toggleDarkMode}
+            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {darkMode ? (
+              <>
+                <FaSun className="icon-pulse" />
+                <span className="d-none d-md-inline">Light</span>
+              </>
+            ) : (
+              <>
+                <FaMoon className="icon-float" />
+                <span className="d-none d-md-inline">Dark</span>
+              </>
+            )}
+          </button>
+          <button className="btn btn-outline-danger" onClick={handleLogout}>
             Logout
           </button>
         </div>
