@@ -39,92 +39,100 @@ function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
   };
 
   return (
-    <div className="article-page">
-      <div className="article-header">
-        <button className="back-button" onClick={onBack}>
-          <ArrowLeft size={20} /> Back
-        </button>
-
-        <div className="article-actions">
-          <button
-            onClick={() => onBookmark(article.id)}
-            className="action-button"
-            aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
-          >
-            <Bookmark className={isBookmarked ? "bookmarked" : ""} size={20} />
-            {isBookmarked ? "Bookmarked" : "Bookmark"}
+    <div
+      className="container py-4 article-page"
+      style={{ maxHeight: "100vh", overflowY: "auto" }}
+    >
+      <div className="article-page">
+        <div className="article-header">
+          <button className="back-button" onClick={onBack}>
+            <ArrowLeft size={20} /> Back
           </button>
 
-          <button
-            onClick={() => onShare(article)}
-            className="action-button"
-            aria-label="Share article"
-          >
-            <Share2 size={20} />
-            Share
-          </button>
-        </div>
-      </div>
+          <div className="article-actions">
+            <button
+              onClick={() => onBookmark(article.id)}
+              className="action-button"
+              aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
+            >
+              <Bookmark
+                className={isBookmarked ? "bookmarked" : ""}
+                size={20}
+              />
+              {isBookmarked ? "Bookmarked" : "Bookmark"}
+            </button>
 
-      <div className="article-content">
-        <h1 className="article-title">{article.title}</h1>
-
-        <div className="article-meta">
-          <span className="article-source">
-            {article.source?.name || "Unknown source"}
-          </span>
-          <span className="article-date">
-            {new Date(article.publishedAt).toLocaleDateString()} •
-            {new Date(article.publishedAt).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-        </div>
-
-        {article.urlToImage && (
-          <img
-            src={article.urlToImage}
-            alt={article.title}
-            className="article-image"
-          />
-        )}
-
-        <div className="article-description">
-          <h2>Overview</h2>
-          <p>{article.description || "No description available."}</p>
-        </div>
-
-        <div className="article-body">
-          <h2>Article Content</h2>
-          <p>
-            {(article.content || "No content available.").replace(
-              /\[\+\d+ chars\]$/,
-              ""
-            )}
-          </p>
-        </div>
-
-        <div className="article-buttons">
-          <button className="read-more-btn" onClick={handleReadFullArticle}>
-            Read Full Article
-          </button>
-
-          <button
-            className={`ai-summary-btn ${loadingSummary ? "loading" : ""}`}
-            onClick={generateAISummary}
-            disabled={loadingSummary}
-          >
-            {loadingSummary ? "Generating Summary..." : "AI Summarize"}
-          </button>
-        </div>
-
-        {aiSummary && (
-          <div className="ai-summary-section">
-            <h2>AI-Generated Summary</h2>
-            <p className="ai-summary-text">{aiSummary}</p>
+            <button
+              onClick={() => onShare(article)}
+              className="action-button"
+              aria-label="Share article"
+            >
+              <Share2 size={20} />
+              Share
+            </button>
           </div>
-        )}
+        </div>
+
+        <div className="article-content">
+          <h1 className="article-title">{article.title}</h1>
+
+          <div className="article-meta">
+            <span className="article-source">
+              {article.source?.name || "Unknown source"}
+            </span>
+            <span className="article-date">
+              {new Date(article.publishedAt).toLocaleDateString()} •
+              {new Date(article.publishedAt).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
+          </div>
+
+          {article.urlToImage && (
+            <img
+              src={article.urlToImage}
+              alt={article.title}
+              className="article-image"
+            />
+          )}
+
+          <div className="article-description">
+            <h2>Overview</h2>
+            <p>{article.description || "No description available."}</p>
+          </div>
+
+          <div className="article-body">
+            <h2>Article Content</h2>
+            <p>
+              {(article.content || "No content available.").replace(
+                /\[\+\d+ chars\]$/,
+                ""
+              )}
+            </p>
+          </div>
+
+          <div className="article-buttons">
+            <button className="read-more-btn" onClick={handleReadFullArticle}>
+              Read Full Article
+            </button>
+
+            <button
+              className={`ai-summary-btn ${loadingSummary ? "loading" : ""}`}
+              onClick={generateAISummary}
+              disabled={loadingSummary}
+            >
+              {loadingSummary ? "Generating Summary..." : "AI Summarize"}
+            </button>
+          </div>
+
+          {aiSummary && (
+            <div className="ai-summary-section">
+              <h2>AI-Generated Summary</h2>
+              <p className="ai-summary-text">{aiSummary}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

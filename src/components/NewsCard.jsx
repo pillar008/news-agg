@@ -8,52 +8,59 @@ function NewsCard({
   onBookmark,
   onShare,
   onViewArticle,
+  darkMode,
 }) {
   const handleCardClick = (e) => {
-    // Don't navigate if clicking bookmark or share buttons
-    if (e.target.closest(".bookmark-btn") || e.target.closest(".share-btn")) {
+    if (e.target.closest(".bookmark-btn") || e.target.closest(".share-btn"))
       return;
-    }
-    // Navigate to article page
     onViewArticle(article);
   };
 
   return (
-    <div className="card cursor-pointer" onClick={handleCardClick}>
-      <div className="card-header relative">
+    <div
+      className={`card news-card shadow-sm ${
+        darkMode ? "bg-dark text-light" : "bg-white text-dark"
+      }`}
+      onClick={handleCardClick}
+      style={{ borderRadius: "12px", overflow: "hidden", cursor: "pointer" }}
+    >
+      <div
+        className="card-header p-0"
+        style={{ height: "200px", overflow: "hidden" }}
+      >
         <img
           src={article.urlToImage || "/placeholder-image.jpg"}
           alt="news"
-          className="card-img-top"
+          className="w-100 h-100 object-fit-cover"
         />
-        <div
-          className="bookmark-share-container"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="bookmark-share-container d-flex gap-2 position-absolute top-0 end-0 m-2">
           <button
             onClick={() => onBookmark(article.id)}
-            className="bookmark-btn"
-            aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
+            className={` bookmark-btn btn rounded-circle p-2 bookmark-btn ${
+              isBookmarked ? "btn-warning" : "btn-outline-light"
+            }`}
+            title={isBookmarked ? "Remove Bookmark" : "Add Bookmark"}
           >
-            <Bookmark
-              className={`bookmark-icon ${isBookmarked ? "bookmarked" : ""}`}
-            />
+            <Bookmark size={18} />
           </button>
           <button
             onClick={() => onShare(article)}
-            className="share-btn"
-            aria-label="Share article"
+            className="share-btn btn btn-outline-light rounded-circle p-2 share-btn"
+            title="Share Article"
           >
-            <Share2 className="share-icon" />
+            <Share2 size={18} />
           </button>
         </div>
       </div>
-      <div className="card-body p-4">
-        <h3 className="card-title text-lg font-semibold">{article.title}</h3>
-        <p className="card-text text-sm text-gray-700">
-          {article.description
-            ? article.description.substring(0, 100) + "..."
-            : "No description available"}
+      <div className="card-body">
+        <h5 className="card-title">{article.title}</h5>
+        <p className="card-text">
+          {article.description?.substring(0, 120) ||
+            "No description available..."}
+        </p>
+        <p className="text-muted mb-0" style={{ fontSize: "0.875rem" }}>
+          {article.source?.name || "Unknown Source"} •{" "}
+          {new Date(article.publishedAt).toLocaleDateString()}
         </p>
       </div>
     </div>
