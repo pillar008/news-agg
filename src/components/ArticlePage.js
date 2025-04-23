@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ArrowLeft, Share2, Bookmark } from "lucide-react";
-import "../styles/homepage.css"; // Use existing CSS file instead of articlepage.css
+import "../styles/article.css"
 
 function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
   const [aiSummary, setAiSummary] = useState("");
@@ -40,19 +40,19 @@ function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
 
   return (
     <div
-      className="container py-4 article-page"
+      className=" py-4 article-page"
       style={{ maxHeight: "100vh", overflowY: "auto" }}
     >
       <div className="article-page">
         <div className="article-header">
-          <button className="back-button" onClick={onBack}>
+          <button className="back-button back" onClick={onBack}>
             <ArrowLeft size={20} /> Back
           </button>
 
           <div className="article-actions">
             <button
               onClick={() => onBookmark(article.id)}
-              className="action-button"
+              className="action-button bookmark"
               aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
             >
               <Bookmark
@@ -64,7 +64,7 @@ function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
 
             <button
               onClick={() => onShare(article)}
-              className="action-button"
+              className="action-button share"
               aria-label="Share article"
             >
               <Share2 size={20} />
