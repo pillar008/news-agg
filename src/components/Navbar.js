@@ -35,11 +35,16 @@ function Navbar({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button className="btn btn-outline-primary" onClick={handleSearch}>
+          <button
+            className="btn btn-outline-primary btn1"
+            onClick={handleSearch}
+          >
             Search
           </button>
           <button
-            className={`btn ${isBookmarksActive ? "btn-success" : "btn-outline-info"}`}
+            className={`btn btn2 ${
+              isBookmarksActive ? "btn-success" : "btn-outline-info"
+            }`}
             onClick={handleBookmarksClick}
           >
             Bookmarks
@@ -49,7 +54,7 @@ function Navbar({
           <Weather />
 
           <button
-            className="btn btn-outline-warning d-flex align-items-center gap-1"
+            className="btn btn4 btn-outline-warning d-flex align-items-center gap-1"
             onClick={toggleDarkMode}
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
@@ -65,7 +70,10 @@ function Navbar({
               </>
             )}
           </button>
-          <button className="btn btn-outline-danger" onClick={handleLogout}>
+          <button
+            className="btn btn5 btn-outline-danger"
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </div>

@@ -51,6 +51,14 @@
     border-color 0.3s ease;
 }
 
+.navbar-brand h1 {
+  font-family: "Pacifico", cursive;
+  font-size: 2.3rem;
+  letter-spacing: 1px;
+  margin: 0;
+  color: #ffc107;
+}
+
 /* Dark mode styles */
 .homepage-container.dark-mode {
   background-color: #121212;
@@ -533,4 +541,12 @@
 }
 .object-fit-cover {
   object-fit: cover;
+}
+
+.btn1,
+.btn2,
+/* .btn3, */
+.btn4,
+.btn5 {
+  width: auto;
 }
