@@ -1,0 +1,17 @@
+/* Weather.css */
+.weather-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: white; /* Text color for better visibility on dark background */
+}
+
+.weather-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.weather-info {
+  font-weight: bold;
+}

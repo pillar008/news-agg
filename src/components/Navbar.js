@@ -1,6 +1,8 @@
+// Navbar.js
 import React, { useState } from "react";
-import "../styles/homepage.css";
-import { FaMoon, FaSun } from "react-icons/fa"; // Import icons from react-icons
+import { FaMoon, FaSun } from "react-icons/fa";
+import Weather from "./Weather"; // Import the Weather component
+import "../styles/homepage.css"; // Existing CSS file for general styling
 
 function Navbar({
   query,
@@ -9,7 +11,7 @@ function Navbar({
   handleLogout,
   onShowBookmarks,
   darkMode,
-  toggleDarkMode
+  toggleDarkMode,
 }) {
   const [isBookmarksActive, setIsBookmarksActive] = useState(false);
 
@@ -37,14 +39,16 @@ function Navbar({
             Search
           </button>
           <button
-            className={`btn ${
-              isBookmarksActive ? "btn-success" : "btn-outline-info"
-            }`}
+            className={`btn ${isBookmarksActive ? "btn-success" : "btn-outline-info"}`}
             onClick={handleBookmarksClick}
           >
             Bookmarks
           </button>
-          <button 
+
+          {/* Weather Component placed here */}
+          <Weather />
+
+          <button
             className="btn btn-outline-warning d-flex align-items-center gap-1"
             onClick={toggleDarkMode}
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
