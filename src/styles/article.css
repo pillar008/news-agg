@@ -2,7 +2,6 @@
   padding: 24px;
   background-color: var(--bg-color, #fff);
   color: var(--text-color, #000);
-  /* max-width: 900px; */
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -69,7 +68,6 @@
 
 .article-image {
   width: 30%;
-  /* height: auto; */
   border-radius: 8px;
 }
 
@@ -93,6 +91,8 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 500; /* ✅ Consistent font weight for both buttons */
 }
 
 .read-more-btn:hover,
@@ -130,5 +130,13 @@ button {
 }
 
 .back {
+  width: auto;
+}
+
+.read-more-btn {
+  width: auto;
+}
+
+.ai-summary-section {
   width: auto;
 }
