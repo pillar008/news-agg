@@ -1,47 +1,66 @@
-// Weather.js
-import React, { useEffect, useState } from "react";
-import "../styles/Weather.css"; // Import Weather-specific CSS for styling
+import React, { useEffect, useState } from 'react';
+import '../styles/Weather.css';
+import { useNavigate } from 'react-router-dom';
 
-function Weather() {
-  const [weather, setWeather] = useState(null);
+const API_KEY = '5a56b1951965c53f180c175cc7d6a821';
 
-  // Fetch weather data from OpenWeatherMap API
-  const fetchWeather = async () => {
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=Ahmedabad&appid=5a56b1951965c53f180c175cc7d6a821&units=metric`
-      );
-      const data = await response.json();
-      setWeather({
-        temp: data.main.temp,
-        desc: data.weather[0].description,
-        icon: data.weather[0].icon,
-      });
-    } catch (error) {
-      console.error("Weather fetch error:", error);
-    }
-  };
+const Weather = () => {
+  const [weatherData, setWeatherData] = useState(null);
+  const [locationError, setLocationError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchWeather();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`
+          )
+            .then(response => response.json())
+            .then(data => {
+              setWeatherData({
+                temp: Math.round(data.main.temp),
+                city: data.name,
+                icon: data.weather[0].icon,
+                description: data.weather[0].description,
+              });
+            })
+            .catch(error => {
+              console.error('Error fetching weather data:', error);
+              setLocationError('Failed to fetch weather data.');
+            });
+        },
+        error => {
+          console.error('Geolocation error:', error);
+          setLocationError('Location permission denied.');
+        }
+      );
+    } else {
+      setLocationError('Geolocation not supported.');
+    }
   }, []);
 
-  if (!weather) {
-    return <span>Loading weather...</span>;
-  }
+  const handleClick = () => {
+    navigate('/weather-details');
+  };
 
   return (
-    <div className="weather-container">
-      <img
-        src={`https://openweathermap.org/img/wn/${weather.icon}.png`}
-        alt="Weather Icon"
-        className="weather-icon"
-      />
-      <span className="weather-info">
-        {weather.temp}°C | {weather.desc}
-      </span>
+    <div className="weather-widget" onClick={handleClick} title="Click for detailed weather">
+      {weatherData ? (
+        <div className="weather-content">
+          <div className="contain">
+            <div className="weather-temp">{weatherData.temp}°C</div>
+            <div className="weather-city">{weatherData.city}</div>
+          </div>
+        </div>
+      ) : (
+        <div className="weather-loading">
+          {locationError || 'Loading weather...'}
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default Weather;

@@ -50,7 +50,7 @@ function HomePage() {
     fetchNews(query);
     const saved = JSON.parse(localStorage.getItem("bookmarkedArticles")) || [];
     setBookmarks(saved);
-  }, []);
+  }, [query]);
 
   const handleBookmark = (id) => {
     // Find article in either the articles array or bookmarks array

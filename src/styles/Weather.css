@@ -1,17 +1,48 @@
 /* Weather.css */
+
 .weather-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  color: white; /* Text color for better visibility on dark background */
-}
-
-.weather-icon {
-  width: 25px;
-  height: 25px;
-}
-
-.weather-info {
-  font-weight: bold;
-}
+    display: flex;
+    width: auto;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #28a745; /* Green text */
+  }
+  
+  .contain {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .weather-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border: none;
+    padding: 0;
+  }
+  
+  .weather-info {
+    font-weight: bold;
+  }
+  
+  .weather-widget {
+    background-color: transparent;
+    padding: 5px 12px;
+    border: 2px solid #28a745; /* Green border */
+    border-radius: 0.375rem;;
+    font-size: 14px;
+    color: #28a745; /* Green text */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .weather-widget:hover {
+    background-color: #28a745; /* Fill with green on hover */
+    color: whitesmoke; /* Text becomes whitesmoke */
+    transform: scale(1.02);
+  }

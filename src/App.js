@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Login from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import WeatherDetails from "./components/WeatherDetails"; // ✅ Import the component
 
 function App() {
   return (
@@ -11,6 +12,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/weather-details" element={<WeatherDetails />} />{" "}
+        {/* ✅ Add this line */}
+        <Route path="/weather-details" element={<WeatherDetails />} />
       </Routes>
     </Router>
   );
