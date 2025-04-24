@@ -34,11 +34,21 @@ function HomePage() {
         `https://newsapi.org/v2/everything?q=${q}&apiKey=b39f722083d64208a047a5d2af06724e`
       );
       const data = await res.json();
-      setArticles(
-        data.articles.map((a, i) => ({ ...a, id: i + "_" + Date.now() }))
-      );
+
+      // Make sure the response has articles and map them with unique IDs
+      if (data.articles && Array.isArray(data.articles)) {
+        setArticles(
+          data.articles.map((a, i) => ({ ...a, id: i + "_" + Date.now() }))
+        );
+      } else {
+        // Handle case where no articles are returned
+        setArticles([]);
+        console.error("No articles returned from API", data);
+      }
     } catch (err) {
+      console.error("Failed to load news:", err);
       alert("Failed to load news.");
+      setArticles([]);
     } finally {
       setLoading(false);
     }
@@ -167,6 +177,7 @@ function HomePage() {
               onBookmark={handleBookmark}
               onShare={handleShare}
               onBack={handleBackFromArticle}
+              darkMode={darkMode}
             />
           </div>
         )}

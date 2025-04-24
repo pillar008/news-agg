@@ -20,20 +20,31 @@ function Navbar({
     onShowBookmarks();
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <nav
+      className={`navbar navbar-expand-lg ${
+        darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
+      } px-4`}
+    >
       <a className="navbar-brand" href="/">
         <h1>NEWS</h1>
       </a>
 
       <div className="collapse navbar-collapse justify-content-end">
-        <div className="search-logout-form d-flex gap-2 align-items-center">
+        <div className="search-logout-form d-flex gap-2 align-items-center flex-wrap">
           <input
             className="form-control"
             type="search"
             placeholder="e.g. Science"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             className="btn btn-outline-primary btn1"

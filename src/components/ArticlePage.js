@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { ArrowLeft, Share2, Bookmark } from "lucide-react";
-import "../styles/article.css"
+import "../styles/article.css";
 
-function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
+function ArticlePage({
+  article,
+  isBookmarked,
+  onBookmark,
+  onShare,
+  onBack,
+  darkMode,
+}) {
   const [aiSummary, setAiSummary] = useState("");
   const [loadingSummary, setLoadingSummary] = useState(false);
 
@@ -40,10 +47,10 @@ function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
 
   return (
     <div
-      className=" py-4 article-page"
+      className={`py-4 article-page ${darkMode ? "dark-mode" : ""}`}
       style={{ maxHeight: "100vh", overflowY: "auto" }}
     >
-      <div className="article-page">
+      <div className="article-page-inner">
         <div className="article-header">
           <button className="back-button back" onClick={onBack}>
             <ArrowLeft size={20} /> Back
@@ -52,7 +59,9 @@ function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
           <div className="article-actions">
             <button
               onClick={() => onBookmark(article.id)}
-              className="action-button bookmark"
+              className={`action-button bookmark ${
+                isBookmarked ? "bookmarked-btn" : ""
+              }`}
               aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
             >
               <Bookmark
@@ -90,11 +99,13 @@ function ArticlePage({ article, isBookmarked, onBookmark, onShare, onBack }) {
           </div>
 
           {article.urlToImage && (
-            <img
-              src={article.urlToImage}
-              alt={article.title}
-              className="article-image"
-            />
+            <div className="article-image-container">
+              <img
+                src={article.urlToImage}
+                alt={article.title}
+                className="article-image"
+              />
+            </div>
           )}
 
           <div className="article-description">

@@ -140,3 +140,36 @@ button {
 .ai-summary-section {
   width: auto;
 }
+
+/* Add these styles to article.css */
+.article-page.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+.dark-mode .article-title {
+  color: #f0f0f0;
+}
+
+.dark-mode .article-meta {
+  color: #aaa;
+}
+
+.dark-mode .article-description,
+.dark-mode .article-body {
+  color: #e0e0e0;
+}
+
+.dark-mode .ai-summary-section {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+}
+
+.dark-mode .action-button {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+.dark-mode .article-image-container {
+  border-color: #333;
+}
