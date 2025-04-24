@@ -35,19 +35,9 @@ function Navbar({
       } px-4`}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-        <h1
-          style={{
-            margin: 0,
-            color: "goldenrod",
-            fontFamily: "cursive",
-            fontWeight: "bold",
-            fontSize: "2.2rem",
-          }}
-        >
-          <a className="navbar-brand" href="/">
-            NEWS
-          </a>
-        </h1>
+        <a className="navbar-brand" href="/">
+          <h1 className="brand-title">NEWS</h1>
+        </a>
 
         <DateTimeDisplay />
       </div>

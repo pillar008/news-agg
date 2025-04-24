@@ -51,15 +51,23 @@
     border-color 0.3s ease;
 }
 
-.navbar-brand h1 {
+.navbar-brand {
+  text-decoration: none !important; /* removes underline */
+  color: #ffc107 !important;        /* your preferred color (goldenrod/yellow) */
+}
+
+.navbar-brand:hover {
+  text-decoration: none !important; /* removes underline on hover */
+  color: #e0a800 !important;        /* optional: hover color */
+}
+
+.brand-title {
+  margin: 0;
   font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;
   font-weight: 900;
   font-style: italic;
-  font-size: 3rem;
-  letter-spacing: 1px;
-  margin: 0;
-  color: #ffc107;
+  font-size: 2.5rem;
+  color: #ffc107; /* golden yellow */
 }
 
 /* Dark mode styles */
@@ -132,6 +140,7 @@
 
 /* Input field and buttons */
 .navbar .form-control {
+  margin: 1rem;
   width: 200px;
   height: 35px;
   font-size: 1rem;
