@@ -1,51 +1,126 @@
 // src/components/WeatherDetails.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/WeatherDetails.css"; // Optional CSS for styling the details page
+import "../styles/WeatherDetails.css";
+
+const recentSearch = [
+  "India Gandhinagar",
+  "India Gujrat",
+  "India Mumbai",
+  "India Ahmedabad",
+  "India Bangalore",
+  "India Delhi",
+];
 
 function WeatherDetails() {
+  const [searchedText, setSearchedText] = useState("India Gandhinagar");
   const [weatherDetails, setWeatherDetails] = useState(null);
+  const [locationDetails, setLocationDetails] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch weather details for a default city
-  const fetchWeatherDetails = async () => {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=Ahmedabad&appid=5a56b1951965c53f180c175cc7d6a821&units=metric`
-    );
-    const data = await response.json();
-    setWeatherDetails(data);
+  const fetchWeather = async (place) => {
+    try {
+      const res = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=25910174a87a4c63a6c141019230506&q=${place}&aqi=no`
+      );
+      const data = await res.json();
+      setLocationDetails(data.location);
+      setWeatherDetails(data.current);
+      setSearchedText("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchWeatherByCoords = async (lat, lon) => {
+    try {
+      const res = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=25910174a87a4c63a6c141019230506&q=${lat},${lon}&aqi=no`
+      );
+      const data = await res.json();
+      setLocationDetails(data.location);
+      setWeatherDetails(data.current);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    fetchWeatherDetails();
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchWeatherByCoords(latitude, longitude);
+      },
+      (error) => {
+        console.log("Geolocation permission denied. Using default.");
+        fetchWeather("India Gandhinagar");
+      }
+    );
   }, []);
 
-  return (
-    <div className="weather-details-container">
-      <h1>Weather Details</h1>
+  const handleSearch = () => {
+    if (searchedText.trim()) fetchWeather(searchedText);
+  };
 
-      {weatherDetails ? (
-        <div className="weather-info">
-          <p>
-            Location: {weatherDetails.name}, {weatherDetails.sys.country}
-          </p>
-          <p>Temperature: {weatherDetails.main.temp}°C</p>
-          <p>Description: {weatherDetails.weather[0].description}</p>
-          <p>Humidity: {weatherDetails.main.humidity}%</p>
-          <p>Wind Speed: {weatherDetails.wind.speed} m/s</p>
-          {/* <img
-            src={`https://openweathermap.org/img/wn/${weatherDetails.weather[0].icon}.png`}
-            alt="Weather Icon"
-            className="weather-icon"
-          /> */}
+  return (
+    <main className="weather-container">
+      {weatherDetails && (
+        <div className="weather-card">
+          {/* Left (Weather Info) */}
+          <div className="weather-info">
+            <div className="icon-container">
+              <img
+                src={`https:${weatherDetails.condition.icon}`}
+                alt="weather"
+              />
+            </div>
+            <div className="temp-country">
+              <h1 className="temp">
+                {Math.round(weatherDetails.temp_c)}
+                <sup>o</sup>C
+              </h1>
+              <div>
+                <h2>{locationDetails.country}</h2>
+                <p>
+                  <strong>{locationDetails.name}</strong> •{" "}
+                  {locationDetails.localtime}
+                </p>
+              </div>
+              <div className="condition">
+                <p>{weatherDetails.condition.text}</p>
+                <small>
+                  Humidity: {weatherDetails.humidity}%<br />
+                  Wind: {weatherDetails.wind_kph} km/h
+                </small>
+              </div>
+            </div>
+          </div>
+
+          {/* Right (Search + Recent) */}
+          <div className="extra-panel">
+            <div className="search-box">
+              <input
+                value={searchedText}
+                onChange={(e) => setSearchedText(e.target.value)}
+                placeholder="Search here"
+              />
+              <button onClick={handleSearch}>Search</button>
+            </div>
+            <div className="recent-search">
+              <p>Recent search</p>
+              {recentSearch.map((place) => (
+                <p key={place} onClick={() => fetchWeather(place)}>
+                  {place}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
-      ) : (
-        <p>Loading weather details...</p>
       )}
       <button className="back-button1" onClick={() => navigate(-1)}>
         ← Back
       </button>
-    </div>
+    </main>
   );
 }
 
