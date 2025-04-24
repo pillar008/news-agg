@@ -4,12 +4,10 @@ import HomePage from "./components/HomePage";
 import Login from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import WeatherDetails from "./components/WeatherDetails"; // ✅ Import the component
-import Translator from "./components/Translator";
 
 function App() {
   return (
     <Router>
-      <Translator></Translator>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />

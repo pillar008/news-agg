@@ -25,6 +25,9 @@ function HomePage() {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    localStorage.setItem("theme", newMode ? "dark" : "light");
   };
 
   const fetchNews = async (q) => {

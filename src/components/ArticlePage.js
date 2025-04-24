@@ -48,7 +48,7 @@ function ArticlePage({
   return (
     <div
       className={`py-4 article-page ${darkMode ? "dark-mode" : ""}`}
-      style={{ maxHeight: "100vh", overflowY: "auto" }}
+      style={{ maxHeight: "95vh", overflowY: "auto" }}
     >
       <div className="article-page-inner">
         <div className="article-header">
