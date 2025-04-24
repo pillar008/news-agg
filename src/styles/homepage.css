@@ -52,8 +52,11 @@
 }
 
 .navbar-brand h1 {
-  font-family: "Pacifico", cursive;
-  font-size: 2.3rem;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 3rem;
   letter-spacing: 1px;
   margin: 0;
   color: #ffc107;
