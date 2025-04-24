@@ -7,7 +7,7 @@ import "../styles/homepage.css";
 
 function HomePage() {
   const [articles, setArticles] = useState([]);
-  const [query, setQuery] = useState("india");
+  const [query, setQuery] = useState();
   const [loading, setLoading] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
   const [showBookmarks, setShowBookmarks] = useState(false);
