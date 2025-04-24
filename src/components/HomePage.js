@@ -31,7 +31,7 @@ function HomePage() {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://newsapi.org/v2/everything?q=${q}&apiKey=b39f722083d64208a047a5d2af06724e`
+        `https://newsapi.org/v2/everything?q=${q}&apiKey=ad3f7c8c84a44e76915c0039cf991cdc`
       );
       const data = await res.json();
 

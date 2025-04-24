@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import Weather from "./Weather"; // Import the Weather component
+import DateTimeDisplay from "../components/DateTimeDisplay";
+
 import "../styles/homepage.css"; // Existing CSS file for general styling
 
 function Navbar({
@@ -32,10 +34,23 @@ function Navbar({
         darkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
       } px-4`}
     >
-      <a className="navbar-brand" href="/">
-        <h1>NEWS</h1>
-      </a>
+      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+        <h1
+          style={{
+            margin: 0,
+            color: "goldenrod",
+            fontFamily: "cursive",
+            fontWeight: "bold",
+            fontSize: "2.2rem",
+          }}
+        >
+          <a className="navbar-brand" href="/">
+            NEWS
+          </a>
+        </h1>
 
+        <DateTimeDisplay />
+      </div>
       <div className="collapse navbar-collapse justify-content-end">
         <div className="search-logout-form d-flex gap-2 align-items-center flex-wrap">
           <input
